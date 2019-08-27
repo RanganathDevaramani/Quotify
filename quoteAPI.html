@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quotify</title>
+    </head>
+    <body>
+        <div id='title' style = 'text-align:center; font-family:Tahoma cursive; font-size: 150%; color: rgb(23, 23, 92)'>
+            <h1><em>Quotify</em></h1>
+        </div>
+        <ul id= 'newLine'>
+
+        </ul>
+        <div id='pages' style = 'text-align:center; font-family:Times New Roman; font-size:125%'>
+            <span>Random Quote(API)</span>  |
+            <span><a href='random-quote-local.html'>Random Quote(Local)</a></span>  |
+            <span><a href='add-quotes.html'>Add Quotes</a></span>  |
+            <span><a href='list-of-quotes.html'></a>List of Quotes</a></span>
+        </div>
+        <br><br>
+        <form id='txtArea' align='center' style="font-size: 15pt; font-family:cursive">
+            <textarea rows="5" cols="150" style="resize: none; font-size:15pt; overflow: auto; word-wrap: hard">A good programmer is someone who always looks both ways before crossing a one-way street. - Doug Linder</textarea>
+        </form>
+        
+        <div style="margin-left: 85%">
+            <button id='save'>save to local</button>
+        </div>
+        
+        <div align='center'>
+            <button id='getQuote' >Get another quote</button>
+        </div>
+        <script>
+            const txtAreaHandle = document.getElementById('txtArea')
+            const ulHandle = document.getElementById('newLine')
+            
+            function getQuote(){
+                fetch('https://thesimpsonsquoteapi.glitch.me/quotes')
+                .then(function(response){
+                    return response.json()
+                })
+                .then(function(qt){
+                    let output = []
+                        output.push(`${qt[0].quote} - ${qt[0].character}`)
+                        txtAreaHandle.innerHTML = output
+                    })
+                .catch(function(err){
+                    console.log(err)
+                })
+            }
+
+            // function getData(){
+            // var request = new XMLHttpRequest();
+            // //     request.open('GET', 'http://ron-swanson-quotes.herokuapp.com/v2/quotes');
+            // request.open('GET', 'https://thesimpsonsquoteapi.glitch.me/quotes')
+            //     request.send()
+            //     request.onload = function(qt) {
+            //         txtAreaHandle.textContent = request.response
+            //         console.log(txtAreaHandle.textContent)
+                     
+            //     };
+            // }
+            
+           const buttonHandle = document.getElementById('getQuote')
+            const saveHandle = document.getElementById('save')
+            
+            buttonHandle.addEventListener('click', function(request){
+               txtAreaHandle.innerHTML = ''
+               getQuote()
+               
+            })
+        //    saveHandle.addEventListener('click',function(){
+               
+            
+        //    })
+        //    txtAreaHandle.addEventListener('keyup', function(){
+        //         getQuote()
+        //    })
+                
+        </script>
+
+    </body>
+</html>
+
+
+

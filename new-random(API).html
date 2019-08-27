@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Random quote from API</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body align=center>
+        <div align=center>
+            <!--QUOTIFY-->
+            <h1 style="font-size: 50pt">Quotify</h1>
+        </div>
+        <br>
+        <div align=center style="font-family:monospace; font-size: 15pt">
+            <!--ALL LINKS-->
+            <span>Random Quotes(API)</span>|
+            <span><a href='random-quote-local.html'>Random Quote(Local)</a></span>|
+            <span><a href='add-quotes.html'>Add Quotes</a></span>|
+            <span><a href='list-of-quotes.html'>List of Quotes</a></span>
+        </div>
+        <br>
+        
+        <div class="container">
+            <div class='jumbotron'>
+                <div id ='quote' align=center style="font-size:15pt; font-family: cursive">
+                        One man’s crappy software is another man’s full time job.
+                </div>
+                <br>
+                <div id='author' align=center style="font-size: 12pt">Jessica Gaston</div>  
+                <br>
+            </div>
+            <div>
+                <!--SAVE BUTTON-->
+            <button id='save' class="btn-primary" style="float:right;"><span class="glyphicon glyphicon-bookmark"></span>Save to Local</button>
+            </div>
+            <br>
+            <div align=center>
+                <!--GET ANOTHER QUOTE BUTTON-->
+            <button id='btn' class="btn-success btn-md">Get another quote</button>
+            </div><br>    
+        </div>
+        <script>
+            let quoteObj = []
+            if (localStorage.getItem('quoteObj')) {
+            quoteObj = JSON.parse(localStorage.getItem('quoteObj'));
+            } 
+            else {
+            quoteObj = [];
+            }
+            const quoteHandle = document.getElementById('quote')
+            const authorHandle = document.getElementById('author')
+            const btnHandle = document.getElementById('btn')
+            const saveHandle = document.getElementById('save')
+
+            function getData(){
+                fetch('https://thesimpsonsquoteapi.glitch.me/quotes')
+                .then(function(response){
+                    return response.json()
+                })
+                .then(function(quotes){
+                    document.getElementById('quote').style.fontSize="15pt"
+                    quoteHandle.innerHTML = `${quotes[0].quote}`
+                    authorHandle.innerHTML = `${quotes[0].character}`
+                    console.log(quotes)
+
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+            }
+
+            btnHandle.addEventListener('click', function(){
+                saveHandle.disabled = false
+                saveHandle.innerHTML = 'Save to Local'
+                getData()
+            })
+            saveHandle.addEventListener('click', function(){
+                let objectData = {}
+                objectData.oQuote = quoteHandle.innerHTML
+                objectData.author = authorHandle.innerHTML
+                quoteObj.push(objectData)
+                localStorage.setItem("quoteObj", JSON.stringify(quoteObj))
+                saveHandle.disabled =true
+                saveHandle.innerHTML = 'Saved'
+            })
+           
+        </script>
+    </body>
+</html>

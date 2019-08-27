@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Random quote from API</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body align=center>
+        <div align=center>
+            <!--QUOTIFY-->
+            <h1 style="font-size: 50pt">Quotify</h1>
+        </div>
+        <br>
+        <div align=center style="font-family:monospace; font-size: 15pt">
+            <!--ALL LINKS-->
+            <span><a href="new-random(API).html">Random Quotes(API)</a></span>|
+            <span><a href='random-quote-local.html'>Random Quote(Local)</a></span>|
+            <span><a href='add-quotes.html'>Add Quotes</a></span>|
+            <span>List of Quotes</a></span>
+        </div>
+        <br>
+        
+        <div class="container">
+            <div class='jumbotron'>
+                <div>
+                    <ol id='list'>
+                        <li></li>
+                    </ol>
+                    <br>
+                    <span id ='edit'></span>
+                    <span id ='delete'></span>
+
+                </div>
+                <span></span>
+            </div>
+        </div>
+        <script>
+            let quoteObj = []
+                if (localStorage.getItem('quoteObj')) {
+                    quoteObj = JSON.parse(localStorage.getItem('quoteObj'));
+                } 
+                else {
+                    quoteObj = []
+                }
+
+                const listHandle = document.getElementById('list')
+                const editHandle = document.getElementById('edit')
+                const deleteHandle = document.getElementById('delete')
+
+                quoteObj.forEach(function(elements){
+                    const li = document.createElement('section')
+                    li.textContent = `${elements.oQuote} ~ ${elements.author}`
+                    listHandle.appendChild(li)
+                })
+
+        </script>
+    </body>
+</html>
+            

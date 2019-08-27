@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  
+</head>
+<body class = 'bg-light'>
+  <div class="container">
+      <h1 align=center style='font-size: 50pt'>Quotify</h1><br>
+      <div align= center style="font-size:18px; font-family: monospace;">
+          <span><a href='new-random(API).html'>Random Quotes(API)  |</a></span>
+          <span>Random Quote(Local)</span> |
+          <span><a href='add-quotes.html'>Add Quotes</a></span> |
+          <span><a href='list-of-quotes.html'>List of Quotes</a></span>
+      </div>
+  </div>
+  <br>
+  <div class="container">
+    <div class= 'jumbotron'>
+        <div id ='quote' align=center style="font-size:15pt; font-family: cursive">
+          ಎಲ್ಲೆ ಇರು ಹೇಗೆ ಇರು ಎಂದೆಂದಿಗೂ ಕನ್ನಡವಾಗಿರು
+        </div>
+        <br>
+        <div id='author' align=center style="font-size: 12pt">ಕನ್ನಡಿಗರು</div>
+    <br>
+    <div align=center>
+        <button id='btn' class="btn-success btn-md" align=center>Get another quote</button>
+      </div>
+  </div>
+    <script>
+
+      let quoteObj = []
+        if (localStorage.getItem('quoteObj')) {
+          quoteObj = JSON.parse(localStorage.getItem('quoteObj'));
+          } 
+        else {
+          quoteObj = []
+          }
+
+      const quoteHandle = document.getElementById('quote') 
+      const authorHandle  = document.getElementById('author')
+      const btnHandle = document.getElementById('btn')
+      
+
+      btnHandle.addEventListener('click', function(){
+        let quoteArr = quoteObj[Math.round(Math.random() * quoteObj.length)]
+        quoteHandle.innerHTML = quoteArr.oQuote
+        authorHandle.innerHTML = quoteArr.author
+        })
+
+    </script>
+  </body>
+</html>
